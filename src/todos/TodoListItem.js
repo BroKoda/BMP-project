@@ -36,11 +36,13 @@ const RemoveButton = styled(Button)`
 	margin-left: 8px;
 `;
 
-const TodoItemContainerWithWarning = styled(TodoItemContainer)`
-	border-bottom: 
-		${(props) => (new Date(props.createdAt) > new Date(Date.now() - 8640000 * 5)
+export const getBorderStyleForDate = (startingDate, currentDate) =>
+	(startingDate > new Date(currentDate - 86400000 * 5)
 		? 'none'
-		: '2px solid #FF0000')};
+		: '2px solid red');
+
+const TodoItemContainerWithWarning = styled(TodoItemContainer)`
+    border-bottom: ${props => getBorderStyleForDate(new Date(props.createdAt, Date.now()))}
 `;
 
 const TodoListItem = ({todo, onRemovePressed, onCompletedPressed}) => {
